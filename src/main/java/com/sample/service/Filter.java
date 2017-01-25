@@ -4,10 +4,10 @@ import org.springframework.integration.core.GenericSelector;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Filter implements GenericSelector<Integer> {
+public class Filter implements GenericSelector<String> {
 
   @Override
-  public boolean accept(Integer source) {
-    return source % 2 == 0;
+  public boolean accept(String source) {
+    return !source.equals("test2");
   }
 }

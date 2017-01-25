@@ -24,15 +24,15 @@ public class RestResource {
   ExecutorChannel primaryWorkerChannel;
 
   /**
-   * 100 will be transformed to a list with 5 incremental values starting from itself, filter out
-   * odd numbers and get printed.
+   * "test1" transformed to a list with values "test1", "test2" and "test3", and then filter out
+   * "test2" and print "test1" and "test3" finally.
    * 
    * @return
    */
   @GET
   @Path("spring-integration")
   public boolean runSpringIntegration() {
-    Integer payload = Integer.valueOf(100);
+    String payload = "test1";
     Map<String, Object> headers = new HashMap<String, Object>();
     return primaryWorkerChannel.send(new GenericMessage<>(payload, headers));
   }

@@ -1,7 +1,7 @@
 # spring-integration
 
 ### Description
-This sample is to use Spring integration features. Based on a number lets say 150, it will transform to a list contains the itself and next 5 numbers (total 5 numbers), Splitter will split the message payload to 5 separate messages and finally filter will try to filer out those odd numbers. The pipeline is not very practical just try to make transform, split and filter work together.
+This sample is to use Spring integration features like transform, split and filter. The pipeline is not very practical just try to make them work together.
 
 ### Run and build
 Step-1: 

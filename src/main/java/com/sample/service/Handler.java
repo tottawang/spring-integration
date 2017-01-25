@@ -12,8 +12,8 @@ public class Handler {
   @Autowired
   private PrintInfo printInfo;
 
-  public Integer getMessage(Message<?> message) {
-    Integer values = (Integer) message.getPayload();
+  public String getMessage(Message<?> message) {
+    String values = (String) message.getPayload();
     printInfo.print(values.toString());
     return values;
   }
