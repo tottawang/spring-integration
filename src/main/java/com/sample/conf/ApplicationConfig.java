@@ -14,6 +14,9 @@ import org.springframework.integration.dsl.channel.MessageChannels;
 import org.springframework.integration.util.CallerBlocksPolicy;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import com.sample.domain.DomainObject;
+import com.sample.service.Cleaner;
+import com.sample.service.CompleteStrategy;
 import com.sample.service.Filter;
 import com.sample.service.Handler;
 import com.sample.service.Splitter;
@@ -30,6 +33,15 @@ public class ApplicationConfig extends ResourceConfig {
 
   @Autowired
   private Splitter splitter;
+
+  @Autowired
+  private Handler handler;
+
+  @Autowired
+  private Cleaner cleaner;
+
+  @Autowired
+  private CompleteStrategy completeStrategy;
 
   public ApplicationConfig() {
     packages("com.sample.resources");
@@ -55,15 +67,13 @@ public class ApplicationConfig extends ResourceConfig {
   }
 
   @Bean
-  @Qualifier("primaryHandler")
-  public Handler primaryHandler() {
-    return new Handler();
-  }
-
-  @Bean
   public IntegrationFlow primaryFlow() {
     return IntegrationFlows.from(workerChannel()).transform(transformer).split(splitter, null)
-        .filter(filter).handle(m -> primaryHandler().getMessage(m)).get();
+        .filter(filter).handle((m, h) -> {
+          // http://stackoverflow.com/questions/34929476/spring-dsl-sending-error-message-to-jms-queue-get-an-error-one-way-messageha
+          handler.getMessage((DomainObject) m);
+          return m;
+        }).aggregate(a -> a.releaseStrategy(completeStrategy), null).handle(m -> cleaner.cleanup(m))
+        .get();
   }
-
 }

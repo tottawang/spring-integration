@@ -32,8 +32,8 @@ public class RestResource {
   @GET
   @Path("spring-integration")
   public boolean runSpringIntegration() {
-    String payload = "test1";
+    String group = "group1";
     Map<String, Object> headers = new HashMap<String, Object>();
-    return primaryWorkerChannel.send(new GenericMessage<>(payload, headers));
+    return primaryWorkerChannel.send(new GenericMessage<>(group, headers));
   }
 }
