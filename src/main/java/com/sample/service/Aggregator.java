@@ -1,17 +1,15 @@
 package com.sample.service;
 
-import java.util.List;
-
-import org.springframework.integration.annotation.ReleaseStrategy;
-import org.springframework.messaging.Message;
+import org.springframework.integration.aggregator.ReleaseStrategy;
+import org.springframework.integration.store.MessageGroup;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Aggregator {
+public class Aggregator implements ReleaseStrategy {
 
-  @ReleaseStrategy
-  public boolean canRelease(List<Message<?>> messages) {
-    return messages.size() == 1;
+  @Override
+  public boolean canRelease(MessageGroup group) {
+    return group.getMessages().size() == 1;
   }
 
 }
