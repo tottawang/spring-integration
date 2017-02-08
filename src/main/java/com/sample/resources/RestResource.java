@@ -47,8 +47,8 @@ public class RestResource {
   ExecutorChannel primaryWorkerChannel;
 
   /**
-   * "test1" transformed to a list with values "test1", "test2" and "test3", and then filter out
-   * "test2" and print "test1" and "test3" finally.
+   * Transfomer generates 10 items with name begin with x and y each, filter out those items begin
+   * with y and then aggregate the result and do some cleanup.
    * 
    * @return
    */
