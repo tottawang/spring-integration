@@ -22,6 +22,8 @@ public class Splitter extends AbstractMessageSplitter {
     List<DomainObject> list = (List<DomainObject>) message.getPayload();
     if (list.isEmpty()) {
       cleaner.cleanup();
+    } else {
+      list.forEach(m -> m.setCount(list.size()));
     }
     return list;
   }

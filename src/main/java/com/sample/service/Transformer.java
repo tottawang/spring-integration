@@ -4,15 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.integration.transformer.GenericTransformer;
+import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
 import com.sample.domain.DomainObject;
 
 @Component
-public class Transformer implements GenericTransformer<String, List<DomainObject>> {
+public class Transformer implements GenericTransformer<Message<?>, List<DomainObject>> {
 
   @Override
-  public List<DomainObject> transform(String group) {
+  public List<DomainObject> transform(Message<?> message) {
+    String group = (String) message.getPayload();
     List<DomainObject> result = new ArrayList<DomainObject>();
     for (int i = 0; i < 10; i++) {
       result.add(new DomainObject("x-" + i, group));

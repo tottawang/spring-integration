@@ -5,6 +5,7 @@ public class DomainObject {
   private String name;
   private String group;
   private String value;
+  private int count;
 
   public DomainObject(String name, String group) {
     this.name = name;
@@ -33,6 +34,14 @@ public class DomainObject {
 
   public void setValue(String value) {
     this.value = value;
+  }
+
+  public int getCount() {
+    return count;
+  }
+
+  public void setCount(int count) {
+    this.count = count;
   }
 
   @Override
